@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resilience Atlas - Data-Driven Location Intelligence for Prepared Families</title>
+    <meta name="description" content="Stop guessing where to move. Get weekly location intelligence analyzing 50+ resilience factors—water security, economic stability, food production, and community strength.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Resilience Atlas - Data-Driven Location Intelligence">
+    <meta property="og:description" content="AI-powered analysis of the best places to build a resilient life.">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1a5f4a;
+            --primary-dark: #124a39;
+            --primary-light: #2d8b6e;
+            --accent: #c9a227;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #ffffff;
+            --bg-alt: #f9fafb;
+            --border: #e5e7eb;
+            --success: #059669;
+            --warning: #d97706;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background: var(--bg);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Merriweather', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        
+        .nav-cta:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-alt);
+        }
+        
+        .hero-social-proof {
+            margin-top: 2rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Sections */
+        section {
+            padding: 5rem 0;
+        }
+        
+        section.alt {
+            background: var(--bg-alt);
+        }
+        
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Problem Section */
+        .problem-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .problem-content ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .problem-content li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .problem-content li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* How It Works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .step {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .step h3 {
+            color: var(--primary);
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--primary);
+            transform: scale(1.02);
+        }
+        
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--accent);
+            color: var(--text);
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .pricing-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        
+        .pricing-price span {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .pricing-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--success);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .pricing-cta {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        /* FAQ */
+        .faq-list {
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+        }
+        
+        .faq-question {
+            padding: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            padding: 0 1.25rem 1.25rem;
+            color: var(--text-light);
+        }
+        
+        /* Newsletter Signup Form */
+        .signup-form {
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+        
+        footer .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        footer h4 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        footer a {
+            color: #9ca3af;
+            text-decoration: none;
+            display: block;
+            padding: 0.25rem 0;
+            transition: color 0.2s;
+        }
+        
+        footer a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            section h2 {
+                font-size: 1.75rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .pricing-card.featured {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">Resilience Atlas</a>
+            <div class="nav-links">
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+                <a href="#signup" class="nav-cta">Join Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>Stop Guessing Where to Move. Start Knowing.</h1>
+            <p>Get data-driven location intelligence for families who want resilience, not just a change of scenery. Every week, we analyze 3 locations through 50+ resilience factors—water security, economic stability, food production potential, and community strength.</p>
+            <div class="hero-buttons">
+                <a href="#signup" class="btn btn-primary">Get Free Weekly Intelligence</a>
+                <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
+            </div>
+            <p class="hero-social-proof">Join 5,000+ families researching their resilient future</p>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem">
+        <div class="container">
+            <h2>You've Read 47 Blog Posts About "Best Places to Live." You're More Confused Than When You Started.</h2>
+            <div class="problem-content">
+                <p>Every list has different locations. Every article uses different criteria. And none of them seem to ask the questions that actually keep you up at night.</p>
+                
+                <ul>
+                    <li>Will this location have reliable water in 10 years?</li>
+                    <li>Can I grow food if supply chains break down?</li>
+                    <li>Is the local economy stable enough to weather a recession?</li>
+                    <li>Will I find a community that shares my values?</li>
+                    <li>What happens if the power grid fails?</li>
+                </ul>
+                
+                <p>Instead, you get rankings based on coffee shop density, nightlife options, and "vibe."</p>
+                
+                <p><strong>Here's the truth:</strong> Most "best places to live" content is written for people looking for a lifestyle upgrade. Not for families thinking about long-term resilience.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agitation Section -->
+    <section id="agitate" class="alt">
+        <div class="container">
+            <h2>The Wrong Location Choice Could Cost You $100,000—and Years of Regret</h2>
+            <div class="problem-content">
+                <p>Moving is expensive. Moving twice because you chose wrong? Devastating.</p>
+                
+                <p><strong>Your Financial Security:</strong> A home is the biggest investment most families make. Buy in an area with declining water resources, and watch your property value tank.</p>
+                
+                <p><strong>Your Family's Safety:</strong> Climate change isn't theoretical anymore. It's wildfires in California, floods in the Midwest, hurricanes on the coast. Location choice is increasingly about risk management.</p>
+                
+                <p><strong>Your Peace of Mind:</strong> Every day you spend researching is a day you're not building the life you want. And every day you wait, property prices in the good locations keep climbing.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution">
+        <div class="container">
+            <h2>Introducing Resilience Atlas: Data-Driven Location Intelligence for Prepared Families</h2>
+            <div class="problem-content">
+                <p>Two years ago, I was exactly where you are now—overwhelmed by relocation research, drowning in conflicting opinions, and desperate for reliable data.</p>
+                
+                <p>I spent 200+ hours analyzing locations. I dug into water tables, economic projections, climate models, and zoning regulations. I built spreadsheets that would make a data scientist proud.</p>
+                
+                <p><strong>And I realized three things:</strong></p>
+                
+                <ul>
+                    <li><strong>The data exists.</strong> Water security reports, economic forecasts, climate projections—it's all out there. But it's scattered across dozens of sources.</li>
+                    <li><strong>Most families don't have 200 hours.</strong> You have jobs. Kids. Responsibilities. You need answers, not a research project.</li>
+                    <li><strong>The current options suck.</strong> Real estate agents are biased. Bloggers share opinions, not analysis. And those "best places to live" lists? They're not asking the right questions.</li>
+                </ul>
+                
+                <p><strong>So I built what I wished existed:</strong> A systematic, data-driven approach to location analysis that focuses on the factors that actually matter for long-term resilience.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="alt">
+        <div class="container">
+            <h2>Here's How We Find Your Family's Resilient Location</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <h3>Analyze 50+ Resilience Factors</h3>
+                    <p>For every location, we dig into water security, food production capacity, economic stability, energy independence, community resilience, and risk factors.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <h3>AI-Powered Research</h3>
+                    <p>We use AI to aggregate data from 20+ sources—government databases, academic research, and real-time information.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <h3>Human Expertise</h3>
+                    <p>Every AI-generated analysis is reviewed by human researchers who verify, analyze, and add strategic insight.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <h3>Weekly Intelligence</h3>
+                    <p>Get our analysis of 3 locations every week. Not generic overviews—deep dives into the factors that matter.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+        <div class="container">
+            <h2>What Families Are Saying About Resilience Atlas</h2>
+            <div class="testimonials">
+                <div class="testimonial">
+                    <p class="testimonial-text">"We were seriously considering a county in Arizona based on online recommendations. Resilience Atlas's water security analysis showed us the drought risk we had completely missed. We ended up choosing a location in Tennessee instead, and we couldn't be happier."</p>
+                    <p class="testimonial-author">— David and Sarah M., relocated 2023</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"I've been researching locations for 18 months. Resilience Atlas gave me more useful information in 3 weeks than I found in all that time. The systematic approach cuts through all the noise."</p>
+                    <p class="testimonial-author">— Jennifer K., currently researching</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"We ordered a custom report for our final three locations. The level of detail was incredible—things I never would have thought to research. We made our decision with complete confidence."</p>
+                    <p class="testimonial-author">— Robert T., relocated to Idaho 2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="alt">
+        <div class="container">
+            <h2>Choose Your Level of Intelligence</h2>
+            <p style="text-align: center; color: var(--text-light); margin-bottom: 2rem;">From free weekly updates to personalized analysis, we have the right research for your timeline and budget.</p>
+            
+            <div class="pricing-grid">
+                <!-- Free Tier -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <div class="pricing-name">FREE</div>
+                        <div class="pricing-price">$0</div>
+                        <p>Forever free</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Weekly newsletter (3 locations)</li>
+                        <li>Resilience scorecards</li>
+                        <li>Data-driven insights</li>
+                        <li>Practical takeaways</li>
+                        <li>Community of 5,000+ families</li>
+                    </ul>
+                    <a href="#signup" class="btn btn-secondary pricing-cta">Join Free</a>
+                </div>
+                
+                <!-- Premium Tier -->
+                <div class="pricing-card featured">
+                    <span class="pricing-badge">Most Popular</span>
+                    <div class="pricing-header">
+                        <div class="pricing-name">PREMIUM</div>
+                        <div class="pricing-price">$29<span>/month</span></div>
+                        <p>Or $290/year (2 months free)</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Everything in Free</li>
+                        <li>Full database access (50+ data points)</li>
+                        <li>2-3 additional locations per week</li>
+                        <li>Searchable comparison tools</li>
+                        <li>Historical data & trends</li>
+                        <li>Priority Q&A access</li>
+                        <li>Private community</li>
+                    </ul>
+                    <a href="#signup-premium" class="btn btn-primary pricing-cta">Start Premium</a>
+                </div>
+                
+                <!-- Custom Reports -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <div class="pricing-name">CUSTOM REPORTS</div>
+                        <div class="pricing-price">$250<span>–$950</span></div>
+                        <p>One-time fee</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Personalized analysis</li>
+                        <li>1-3 locations analyzed</li>
+                        <li>20-50 page detailed report</li>
+                        <li>SWOT analysis</li>
+                        <li>Risk assessment</li>
+                        <li>Resource directory</li>
+                        <li>Strategic includes consultation</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary pricing-cta">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signup Section -->
+    <section id="signup">
+        <div class="container">
+            <h2>Ready to Stop Guessing and Start Knowing?</h2>
+            <p style="text-align: center; color: var(--text-light); max-width: 600px; margin: 0 auto 2rem;">Join 5,000+ families who get weekly location intelligence that actually matters. No spam. Unsubscribe anytime.</p>
+            
+            <div class="signup-form">
+                <!-- Replace with your Beehiiv signup form embed code -->
+                <form action="YOUR_BEEHIIV_FORM_URL" method="post" target="_blank">
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary form-submit">Get Free Weekly Intelligence</button>
+                </form>
+                <p style="text-align: center; color: var(--text-light); font-size: 0.9rem; margin-top: 1rem;">Join 5,000+ subscribers. No spam, ever.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="alt">
+        <div class="container">
+            <h2>Questions? We've Got Answers</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">How is this different from just researching online?</div>
+                    <div class="faq-answer">You could absolutely do this research yourself—but it would take 40-60 hours per location, and you'd need to know which sources to trust. We've spent 500+ hours building our methodology and relationships with data sources. You're paying for speed, accuracy, and expertise.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What if I don't like the locations you recommend?</div>
+                    <div class="faq-answer">We don't "recommend" locations in the abstract—we analyze them. Our reports give you data on both strengths AND weaknesses so you can make an informed decision. Some clients use reports to rule OUT locations, which is just as valuable.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How current is your data?</div>
+                    <div class="faq-answer">We update our database continuously. Newsletter analysis uses the most current data available at publication. Custom reports are current as of the report date, which we clearly note.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Do you have affiliate relationships with real estate agents?</div>
+                    <div class="faq-answer">No. We have no financial relationships with agents, developers, or local economic offices. Our only revenue comes from subscriptions and custom reports. This ensures our analysis remains unbiased.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section>
+        <div class="container" style="text-align: center;">
+            <h2>Start Building Your Resilient Future Today</h2>
+            <p style="color: var(--text-light); max-width: 600px; margin: 0 auto 2rem;">Whether you're just starting to explore or ready to make your move, we have the intelligence you need.</p>
+            <a href="#signup" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.25rem 2.5rem;">Join Free—No Credit Card Required</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div>
+                <h4>Resilience Atlas</h4>
+                <p style="color: #9ca3af; font-size: 0.9rem;">Data-driven location intelligence for prepared families.</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+                <a href="#signup">Join Free</a>
+            </div>
+            <div>
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Disclaimer</a>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <a href="mailto:hello@resilienceatlas.co">hello@resilienceatlas.co</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Resilience Atlas. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem;">This information is for educational purposes only and does not constitute professional advice.</p>
+        </div>
+    </footer>
+
+    <!-- Simple FAQ Toggle Script -->
+    <script>
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+        // Hide answers initially
+        document.querySelectorAll('.faq-answer').forEach(answer => {
+            answer.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

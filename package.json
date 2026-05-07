@@ -1,0 +1,13 @@
+{
+  "name": "resilience-atlas",
+  "version": "1.0.0",
+  "description": "Data-driven location intelligence for prepared families",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build needed'",
+    "deploy": "vercel --prod"
+  },
+  "keywords": ["resilience", "relocation", "preparedness", "location-intelligence"],
+  "author": "Resilience Atlas",
+  "license": "MIT"
+}
